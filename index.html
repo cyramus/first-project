@@ -1,84 +1,370 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Портфолио</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="портфолио Чолак Валерия на Яндекс.Практикуме">
-    <meta name="keywords" content="html, css, javascript">
-    <meta name="author" content="Чолак Валерий">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>49 лет вместе</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a0a00;
+    font-family: 'EB Garamond', serif;
+  }
+
+  .card {
+    width: 700px;
+    height: 980px;
+    position: relative;
+    background: linear-gradient(160deg, #2c1a0e 0%, #1a0a00 40%, #0d0500 100%);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Фоновые розы */
+  .bg-roses {
+    position: absolute;
+    inset: 0;
+    opacity: 0.07;
+    background-image:
+      radial-gradient(ellipse 80px 120px at 10% 15%, #c8702a 0%, transparent 70%),
+      radial-gradient(ellipse 60px 90px at 90% 10%, #c8702a 0%, transparent 70%),
+      radial-gradient(ellipse 100px 150px at 85% 85%, #c8702a 0%, transparent 70%),
+      radial-gradient(ellipse 70px 100px at 15% 88%, #c8702a 0%, transparent 70%);
+  }
+
+  /* Золотая рамка */
+  .frame-outer {
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    pointer-events: none;
+  }
+
+  .frame-inner {
+    position: absolute;
+    inset: 28px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    pointer-events: none;
+  }
+
+  /* Угловые украшения */
+  .corner {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    opacity: 0.7;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner-tl { top: 16px; left: 16px; }
+  .corner-tr { top: 16px; right: 16px; transform: scaleX(-1); }
+  .corner-bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
+  .corner-br { bottom: 16px; right: 16px; transform: scale(-1); }
+
+  /* Центральное содержимое */
+  .content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .top-ornament {
+    color: #d4af37;
+    font-size: 22px;
+    letter-spacing: 12px;
+    opacity: 0.8;
+    margin-bottom: 24px;
+    animation: fadeIn 2s ease forwards;
+  }
+
+  .subtitle-top {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: #c8a96e;
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 1.5s ease 0.3s forwards;
+  }
+
+  .heart-divider {
+    color: #c8702a;
+    font-size: 28px;
+    margin: 10px 0;
+    opacity: 0;
+    animation: pulse 2s ease 0.6s infinite, fadeIn 1s ease 0.6s forwards;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .heart-divider::before,
+  .heart-divider::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #c8702a, transparent);
+  }
+
+  .names {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: #f5e6c8;
+    line-height: 1.15;
+    margin: 16px 0;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 0.8s forwards;
+    text-shadow: 0 0 40px rgba(200, 112, 42, 0.3);
+  }
+
+  .names .and {
+    font-size: 32px;
+    font-style: italic;
+    color: #c8a96e;
+    font-weight: 400;
+  }
+
+  .years-block {
+    margin: 24px 0 20px;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 1.0s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .years-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 110px;
+    font-weight: 700;
+    line-height: 1;
+    color: transparent;
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a0 40%, #c8702a 70%, #d4af37 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 4px 20px rgba(212, 175, 55, 0.25));
+  }
+    .years-label {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: #c8a96e;
+    letter-spacing: 6px;
+  }
+
+  .years-sub {
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: rgba(200, 169, 110, 0.6);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .divider-line {
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    margin: 20px 0;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+  }
+
+  .message {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.8;
+    color: #e8d5b0;
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeInUp 1.2s ease 1.3s forwards;
+  }
+
+  .message strong {
+    color: #f5e6c8;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .roses-row {
+    display: flex;
+    gap: 12px;
+    margin: 22px 0 8px;
+    font-size: 26px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.5s forwards;
+  }
+
+  .signature {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: rgba(200, 169, 110, 0.6);
+    letter-spacing: 2px;
+    margin-top: 16px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.8s forwards;
+  }
+
+  /* Плавающие частицы */
+  .particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #d4af37;
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatUp var(--dur) ease var(--delay) infinite;
+  }
+
+  @keyframes floatUp {
+    0% { opacity: 0; transform: translateY(0) scale(0); }
+    20% { opacity: 0.6; transform: translateY(-20px) scale(1); }
+    80% { opacity: 0.3; transform: translateY(-80px) scale(0.5); }
+    100% { opacity: 0; transform: translateY(-120px) scale(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  /* Декоративные дуги сверху и снизу */
+  .arc-top, .arc-bottom {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.18;
+  }
+  .arc-top { top: 40px; }
+  .arc-bottom { bottom: 40px; transform: translateX(-50%) scaleY(-1); }
+</style>
 </head>
-<body class="page">
-    <header class="header centered-block">
-        <h1 class="centered-block">
+<body>
 
-        </h1>
-    </header>
+<div class="card">
+  <div class="bg-roses"></div>
+  <div class="frame-outer"></div>
+  <div class="frame-inner"></div>
 
-    <nav class="menu centered-block page__menu">
-        <a href="#beginner" class="menu__link">Первые шаги в HTML и CSS</a>
-        <a href="#frameworks" class="menu__link">Библиотеки JavaScript</a>
-        <a href="#practice" class="menu__link">Практика HTML, CSS и JavaScript</a>
-    </nav>
+  <!-- Угловые украшения -->
+  <div class="corner corner-tl">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 55 Q5 5 55 5" stroke="#d4af37" stroke-width="1" fill="none"/>
+      <path d="M5 42 Q18 18 42 5" stroke="#d4af37" stroke-width="0.5" fill="none"/>
+      <circle cx="5" cy="5" r="3" fill="#d4af37" opacity="0.5"/>
+      <circle cx="5" cy="55" r="2" fill="#d4af37" opacity="0.4"/>
+      <circle cx="55" cy="5" r="2" fill="#d4af37" opacity="0.4"/>
+      <path d="M15 5 L5 5 L5 15" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="corner corner-tr">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 55 Q5 5 55 5" stroke="#d4af37" stroke-width="1" fill="none"/>
+      <path d="M5 42 Q18 18 42 5" stroke="#d4af37" stroke-width="0.5" fill="none"/>
+      <circle cx="5" cy="5" r="3" fill="#d4af37" opacity="0.5"/>
+      <circle cx="5" cy="55" r="2" fill="#d4af37" opacity="0.4"/>
+      <circle cx="55" cy="5" r="2" fill="#d4af37" opacity="0.4"/>
+      <path d="M15 5 L5 5 L5 15" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="corner corner-bl">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 55 Q5 5 55 5" stroke="#d4af37" stroke-width="1" fill="none"/>
+      <path d="M5 42 Q18 18 42 5" stroke="#d4af37" stroke-width="0.5" fill="none"/>
+      <circle cx="5" cy="5" r="3" fill="#d4af37" opacity="0.5"/>
+      <path d="M15 5 L5 5 L5 15" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="corner corner-br">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 55 Q5 5 55 5" stroke="#d4af37" stroke-width="1" fill="none"/>
+      <path d="M5 42 Q18 18 42 5" stroke="#d4af37" stroke-width="0.5" fill="none"/>
+      <circle cx="5" cy="5" r="3" fill="#d4af37" opacity="0.5"/>
+      <path d="M15 5 L5 5 L5 15" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
 
-    <main class="content centered-block">
-        <section id="beginner">
-            <h2 class="content__title">Первые шаги в HTML и CSS</h2>
-            <ul class="flex-row list flex-row_space_bottom">
-                <li class="project project_name_music-album project_width_l project_height_l">
-                    <a href="#" class="project__overlay">Обложка музыкального альбома</a>
-                </li>
-                <li class="project project_name_design-principles project_width_l project_height_l">
-                    <a href="#" class="project__overlay">Посадочная страница</a>
-                </li>
-            </ul>
-        </section>
+  <!-- Частицы -->
+  <div class="particles">
+    <div class="particle" style="left:15%;top:80%;--dur:6s;--delay:0s"></div>
+    <div class="particle" style="left:25%;top:75%;--dur:7s;--delay:1s"></div>
+    <div class="particle" style="left:70%;top:82%;--dur:5s;--delay:2s"></div>
+    <div class="particle" style="left:80%;top:78%;--dur:8s;--delay:0.5s"></div>
+    <div class="particle" style="left:50%;top:85%;--dur:6s;--delay:3s"></div>
+    <div class="particle" style="left:40%;top:79%;--dur:7s;--delay:1.5s"></div>
+    <div class="particle" style="left:60%;top:76%;--dur:9s;--delay:2.5s"></div>
+  </div>
 
-        <section id="frameworks">
-            <h2 class="content__title">Библиотеки JavaScript</h2>
-            <div class="flex-row flex-row_reversed flex-row_space_bottom">
-                <ul class="flex-column flex-column_reversed">
-                    <li class="project project_height_s project_width_l">
-                        <video class="project_video" src="https://code.s3.yandex.net/web-code/like.mp4" autoplay muted loop></video>
-                    </li>
-                    <li>
-                        <ul class="flex-row flex-row_frameworks-inner">
-                            <li class="project project_slider project_height_m project_width_m">
-                                <a href="#" class="project__overlay">Слайдер</a>
-                            </li>
-                            <li class="project project_reactive project_height_m project_width_m">
-                                <a href="#" class="project__overlay">React, Vue, Angular</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+  <div class="content">
+    <div class="top-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
 
-                <li class="project project_height_xl project_width_l">
-                    <video class="project_video" src="https://code.s3.yandex.net/web-code/procrastinate.mov" autoplay muted loop></video>
-                </li>
-            </div>
-        </section>
+    <div class="subtitle-top">С годовщиной свадьбы</div>
 
-        <section id="practice">
-            <ul class="flex-row list">
-                <li class="project project_height_m project_width_m project_name_how-to-study">
-                    <a href="#" class="project__overlay">CSS-анимации</a>
-                </li>
-                <li class="project project_height_m project_width_m project_name_across-russia">
-                    <a href="#" class="project__overlay">Адаптивная вёрстка</a>
-                </li>
-                <li class="project project_height_m project_width_m project_name_mesto">
-                    <a href="#" class="project__overlay">Приложение на JavaScript</a>
-                </li>
-            </ul>
-        </section>
-    </main>
+    <div class="heart-divider">♥</div>
 
-    <footer class="footer centered-block">
-        <div class="footer__logo"></div>
-    </footer>
+    <div class="names">
+      Галя<br>
+      <span class="and">&amp;</span><br>
+      Толя
+    </div>
+
+    <div class="years-block">
+      <div class="years-number">49</div>
+      <div class="years-label">лет вместе</div>
+      <div class="years-sub">год до золотой свадьбы</div>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="message">
+      Сорок девять лет — это <strong>целая жизнь, прожитая рука об руку</strong>.
+      Жизнь, полная тепла, заботы и любви,
+      которая становится только крепче с каждым годом.
+      <br><br>
+      Пусть ещё много счастливых лет
+      будут впереди! 💛
+    </div>
+
+    <div class="roses-row">🌹 🌹 🌹 🌹 🌹</div>
+
+    <div class="signature">С любовью и нежностью &nbsp;✦</div>
+  </div>
+</div>
+
 </body>
 </html>
-
